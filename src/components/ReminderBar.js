@@ -1,29 +1,13 @@
-import React, {useContext, Fragment, useEffect, useState} from 'react'
+import React, {useContext, Fragment} from 'react'
 import 'materialize-css/dist/css/materialize.min.css'
 import ClassroomContext from '../context/classroom/classroomContext'
-import M from "materialize-css/dist/js/materialize.min.js";
 
+import { ClassReminderModal } from './ClassReminderModal';
 
 export const ReminderBar = () => {
-    useEffect(
-        () => {
-          M.AutoInit();
-        }, //eslint-disable-next-line
-        []
-      );
     const classroomContext = useContext(ClassroomContext);
-    const {deleteCurrentClassReminder, addClassReminder, class_reminders, current_reminder,
+    const {deleteCurrentClassReminder, class_reminders, current_reminder,
           incrementCurrentReminder, decrementCurrentReminder} = classroomContext;
-    const [modalEntry, setModalEntry] = useState("");
-
-    const dismissModal = () => {
-        setModalEntry("");
-    }
-
-    const saveModal = () => {
-        addClassReminder(modalEntry)
-        setModalEntry("")
-    }
 
     return (
         <Fragment>
@@ -38,16 +22,7 @@ export const ReminderBar = () => {
             <button className="btn add-button grey modal-trigger" href="#addReminderModal"><i className="material-icons">add</i></button>
             </div>
         </div>
-        <div id="addReminderModal" className="modal">
-            <div className="modal-content">
-                <p>Add Class Reminder</p>
-                <textarea className="reminder-entry-box" value={modalEntry} placeholder="Enter reminder text here..." onChange={(e) => setModalEntry(e.target.value)}></textarea>
-            <div className="add-reminder-modal-footer modal-footer">
-                <button className="modal-close red btn" onClick={dismissModal}>Dismiss</button>
-                <button className="modal-close green btn" onClick={saveModal}>Save</button>
-            </div>
-        </div>
-        </div>
+        <ClassReminderModal/>
         </Fragment>
     )
 }
