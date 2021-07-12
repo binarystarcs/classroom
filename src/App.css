@@ -1,3 +1,59 @@
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+}
+
 h2 {
   text-align: center;
+}
+
+.fullscreen {
+  display: grid;
+  grid-template-columns: auto 8rem;
+  grid-template-rows: 8rem auto;
+  margin: 0.5rem;
+  height: 96vh;
+}
+
+  .reminderbar {
+  grid-column-start: 1;
+  grid-column-end: -1;
+  border: 3px hsl(0, 0%, 10%) solid;
+  border-radius: 10px;
+  padding: 0.5rem;
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.reminderbar button {
+  margin: 0.3rem;
+}
+
+.remindertext {
+  flex-grow: 1;
+  font-size: 1.2rem;
+}
+
+.toolbar {
+  display: flex;
+  flex-direction: column-reverse;
+  grid-column-start: 2;
+  grid-column-end: -1;
+  grid-row-start: 2;
+  align-items: flex-end;
+  justify-content: flex-start;
+  margin-bottom: 1rem;
+}
+
+.toolbar button {
+  margin-bottom: 0.7rem;
+  margin-top: 0.7rem;
+  margin-right: 1.3rem;
 }
