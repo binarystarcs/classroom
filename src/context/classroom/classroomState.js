@@ -16,6 +16,7 @@ import {
   INCREMENT_STUDENT_PROGRESS,
   SET_CURRENT_DESK,
   SWAP_STUDENTS,
+  TOGGLE_SHOW_REMINDERS,
 } from "../types";
 
 const ClassroomState = (props) => {
@@ -45,9 +46,14 @@ const ClassroomState = (props) => {
         progress: [0, 1, 4, 0, 0],
         flag: 0,
       },
-    ], //Each student has id, name, desk_id, reminder?, progress_points [], flag
-    desks: [], //Each desk had id, posx, posy
-    desk_size_x: 10,
+    ], //Each student has id, name, desk_id, reminder?, progress[], flag (0-3)
+    desks: [
+      { id: 1, x: 20, y: 20 },
+      { id: 2, x: 45, y: 20 },
+      { id: 3, x: 20, y: 60 },
+      { id: 4, x: 45, y: 60 },
+    ], //Each desk had id, x, y - referring to top left corner coordinates
+    desk_size_x: 16,
     desk_size_y: 10,
     progress_scales: [
       ["", "tick", "cross"],
@@ -60,6 +66,7 @@ const ClassroomState = (props) => {
     current_reminder: 1, // index in class_reminders array
     current_scale: 0, // index in progress_scales array
     current_desk: 0, // id attribute of the desk
+    show_reminders: true,
   };
   const [state, dispatch] = useReducer(classroomReducer, initialState);
 
@@ -118,6 +125,10 @@ const ClassroomState = (props) => {
     dispatch({ type: EDIT_CURRENT_PROGRESS_SCALE, payload: new_values });
   };
 
+  const toggleShowReminders = () => {
+    dispatch({ type: TOGGLE_SHOW_REMINDERS, payload: null });
+  };
+
   return (
     <ClassroomContext.Provider
       value={{
@@ -143,6 +154,8 @@ const ClassroomState = (props) => {
         setCurrentDesk,
         swapStudents,
         editCurrentProgressScale,
+        show_reminders: state.show_reminders,
+        toggleShowReminders,
       }}
     >
       {props.children}

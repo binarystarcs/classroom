@@ -13,12 +13,12 @@ h2 {
 .fullscreen {
   display: grid;
   grid-template-columns: auto 8rem;
-  grid-template-rows: 8rem auto;
+  grid-template-rows: 9rem auto;
   margin: 0.5rem;
   height: 96vh;
 }
 
-  .reminderbar {
+.reminderbar {
   grid-column-start: 1;
   grid-column-end: -1;
   border: 3px hsl(0, 0%, 10%) solid;
@@ -69,4 +69,9 @@ h2 {
 .add-reminder-modal-footer {
   display: flex;
   justify-content: space-between;
+}
+
+.modal-message {
+  text-align: center;
+  flex-grow: 1;
 }

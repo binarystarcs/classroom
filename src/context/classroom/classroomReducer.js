@@ -15,6 +15,7 @@ import {
   SET_CURRENT_DESK,
   STUDENT_FLAG_COUNT,
   SWAP_STUDENTS,
+  TOGGLE_SHOW_REMINDERS,
 } from "../types";
 
 export default (state, action) => {
@@ -145,6 +146,11 @@ export default (state, action) => {
         progress_scales: state.progress_scales.map((scale, index) =>
           index === state.current_scale ? action.payload : scale
         ),
+      };
+    case TOGGLE_SHOW_REMINDERS:
+      return {
+        ...state,
+        show_reminders: !state.show_reminders,
       };
     default:
       return state;
