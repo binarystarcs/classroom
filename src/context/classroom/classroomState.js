@@ -5,12 +5,14 @@ import ClassroomContext from "./classroomContext";
 import {
   ADD_CLASS_REMINDER,
   CLEAR_STUDENT_REMINDER,
+  CYCLE_STUDENT_FLAG,
   DECREMENT_CURRENT_PROGRESS_SCALE,
   DECREMENT_CURRENT_REMINDER,
   DECREMENT_STUDENT_PROGRESS,
   DELETE_CURRENT_REMINDER,
   EDIT_CURRENT_PROGRESS_SCALE,
   EDIT_STUDENT_REMINDER,
+  FLIP_CLASSROOM,
   INCREMENT_CURRENT_PROGRESS_SCALE,
   INCREMENT_CURRENT_REMINDER,
   INCREMENT_STUDENT_PROGRESS,
@@ -67,6 +69,7 @@ const ClassroomState = (props) => {
     current_scale: 0, // index in progress_scales array
     current_desk: 0, // id attribute of the desk
     show_reminders: true,
+    is_flipped: false,
   };
   const [state, dispatch] = useReducer(classroomReducer, initialState);
 
@@ -129,6 +132,14 @@ const ClassroomState = (props) => {
     dispatch({ type: TOGGLE_SHOW_REMINDERS, payload: null });
   };
 
+  const cycleStudentFlag = (desk_id) => {
+    dispatch({ type: CYCLE_STUDENT_FLAG, payload: desk_id });
+  };
+
+  const flipClassroom = () => {
+    dispatch({ type: FLIP_CLASSROOM, payload: null });
+  };
+
   return (
     <ClassroomContext.Provider
       value={{
@@ -156,6 +167,9 @@ const ClassroomState = (props) => {
         editCurrentProgressScale,
         show_reminders: state.show_reminders,
         toggleShowReminders,
+        cycleStudentFlag,
+        flipClassroom,
+        is_flipped: state.is_flipped,
       }}
     >
       {props.children}

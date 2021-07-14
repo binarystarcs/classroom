@@ -1,23 +1,22 @@
 import "./App.css";
-import { useEffect, useContext } from "react";
-import { ReminderBar } from "./components/ReminderBar";
-import { ProgressScaleBar } from "./components/ProgressScaleBar";
+import { useEffect } from "react";
+
 import { Toolbar } from "./components/Toolbar";
 import M from "materialize-css/dist/js/materialize.min.js";
 
 import ClassroomState from "./context/classroom/classroomState";
-import ClassroomContext from "../context/classroom/classroomContext";
+import { TopBarAbstraction } from "./components/TopBarAbstraction";
+import { ClassroomSection } from "./components/ClasroomSection";
 
 function App() {
-  const classroomContext = useContext(ClassroomContext);
-  const { show_reminders } = classroomContext;
   useEffect(() => {
     M.AutoInit();
   });
   return (
     <ClassroomState>
       <div className="fullscreen">
-        {show_reminders ? <ReminderBar /> : <ProgressScaleBar />}
+        <TopBarAbstraction />
+        <ClassroomSection />
         <Toolbar />
       </div>
     </ClassroomState>

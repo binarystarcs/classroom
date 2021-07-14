@@ -15,7 +15,8 @@ export const ProgressScaleModal = () => {
   };
 
   const validateModalEntry = () => {
-    let progressLevels = modalEntry.split(",");
+    if (!modalEntry) return null;
+    let progressLevels = ("," + modalEntry).split(",");
     const currentLevelCount = progress_scales[current_scale].length;
     const MAX_LENGTH = 8;
     if (progressLevels.some((entry) => entry.length > MAX_LENGTH)) return null;
@@ -27,11 +28,13 @@ export const ProgressScaleModal = () => {
     return progressLevels;
   };
 
-  const saveModal = () => {
+  const saveModal = (e) => {
+    e.preventDefault();
     const newProgressScale = validateModalEntry();
     if (newProgressScale) {
       editCurrentProgressScale(newProgressScale);
       setModalMessage("Progress scale updated.");
+      dismissModal();
     } else {
       setModalMessage("Progress scale invalid.");
     }
@@ -52,9 +55,9 @@ export const ProgressScaleModal = () => {
             Dismiss
           </button>
           <div className="modal-message">{modalMessage}</div>
-          <button className="green btn" onClick={saveModal}>
+          <div className="green btn" onClick={(e) => saveModal(e)}>
             Save
-          </button>
+          </div>
         </div>
       </div>
     </div>

@@ -1,10 +1,14 @@
-import React, { useContext, Fragment } from "react";
+import React, { useContext, Fragment, useEffect } from "react";
 import "materialize-css/dist/css/materialize.min.css";
 import ClassroomContext from "../context/classroom/classroomContext";
+import M from "materialize-css/dist/js/materialize.min.js";
 
 import { ProgressScaleModal } from "./ProgressScaleModal";
 
-export const ReminderBar = () => {
+export const ProgressScaleBar = () => {
+  useEffect(() => {
+    M.AutoInit();
+  });
   const classroomContext = useContext(ClassroomContext);
   const {
     progress_scales,
@@ -12,6 +16,10 @@ export const ReminderBar = () => {
     incrementCurrentProgressScale,
     decrementCurrentProgressScale,
   } = classroomContext;
+
+  const getDisplayScale = () => {
+    return progress_scales[current_scale].join(" > ");
+  };
 
   return (
     <Fragment>
@@ -24,7 +32,7 @@ export const ReminderBar = () => {
             <i className="material-icons">chevron_left</i>
           </button>
         </div>
-        <div className="remindertext"> Here Goes Progress Scale </div>
+        <div className="remindertext">{getDisplayScale()} &#10003;</div>
         <button
           className={`btn next-button ${
             current_scale < progress_scales.length - 1 ? "" : "disabled"

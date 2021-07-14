@@ -9,6 +9,7 @@ import {
   DELETE_CURRENT_REMINDER,
   EDIT_CURRENT_PROGRESS_SCALE,
   EDIT_STUDENT_REMINDER,
+  FLIP_CLASSROOM,
   INCREMENT_CURRENT_PROGRESS_SCALE,
   INCREMENT_CURRENT_REMINDER,
   INCREMENT_STUDENT_PROGRESS,
@@ -151,6 +152,11 @@ export default (state, action) => {
       return {
         ...state,
         show_reminders: !state.show_reminders,
+      };
+    case FLIP_CLASSROOM:
+      return {
+        ...state,
+        is_flipped: !state.is_flipped,
       };
     default:
       return state;

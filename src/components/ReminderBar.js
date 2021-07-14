@@ -1,10 +1,13 @@
-import React, { useContext, Fragment } from "react";
+import React, { useContext, Fragment, useEffect } from "react";
 import "materialize-css/dist/css/materialize.min.css";
 import ClassroomContext from "../context/classroom/classroomContext";
-
+import M from "materialize-css/dist/js/materialize.min.js";
 import { ClassReminderModal } from "./ClassReminderModal";
 
 export const ReminderBar = () => {
+  useEffect(() => {
+    M.AutoInit();
+  });
   const classroomContext = useContext(ClassroomContext);
   const {
     deleteCurrentClassReminder,
