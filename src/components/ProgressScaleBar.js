@@ -4,6 +4,7 @@ import ClassroomContext from "../context/classroom/classroomContext";
 import M from "materialize-css/dist/js/materialize.min.js";
 
 import { ProgressScaleModal } from "./ProgressScaleModal";
+import { prettyDisplay } from "../utils/PrettyProgressDisplay";
 
 export const ProgressScaleBar = () => {
   useEffect(() => {
@@ -18,7 +19,7 @@ export const ProgressScaleBar = () => {
   } = classroomContext;
 
   const getDisplayScale = () => {
-    return progress_scales[current_scale].join(" > ");
+    return progress_scales[current_scale].map(prettyDisplay).join(" > ");
   };
 
   return (

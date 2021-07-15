@@ -1,5 +1,6 @@
 import React, { useContext, Fragment } from "react";
 import ClassroomContext from "../context/classroom/classroomContext";
+import { prettyDisplay } from "../utils/PrettyProgressDisplay";
 
 export const Desk = (props) => {
   const classroomContext = useContext(ClassroomContext);
@@ -85,11 +86,11 @@ export const Desk = (props) => {
             &lt;
           </button>
           <div className="student-progress-text">
-            {
+            {prettyDisplay(
               progress_scales[current_scale][
                 current_student.progress[current_scale]
               ]
-            }
+            )}
           </div>
           <div
             className="student-flag"
