@@ -9,7 +9,7 @@ export const ClassroomSection = () => {
   return (
     <div className="classroom-section">
       {desks.map((desk) => (
-        <Desk desk={desk} />
+        <Desk desk={desk} key={desk.id} />
       ))}
     </div>
   );

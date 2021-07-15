@@ -10,6 +10,7 @@ export const ProgressScaleBar = () => {
   useEffect(() => {
     M.AutoInit();
   });
+  const MAX_SCALE_CHARACTERS = 120;
   const classroomContext = useContext(ClassroomContext);
   const {
     progress_scales,
@@ -19,7 +20,14 @@ export const ProgressScaleBar = () => {
   } = classroomContext;
 
   const getDisplayScale = () => {
-    return progress_scales[current_scale].map(prettyDisplay).join(" > ");
+    const displayScale = progress_scales[current_scale]
+      .map(prettyDisplay)
+      .join(" > ");
+    if (displayScale.length > MAX_SCALE_CHARACTERS) {
+      return displayScale.slice(0, MAX_SCALE_CHARACTERS) + "...";
+    } else {
+      return displayScale;
+    }
   };
 
   return (

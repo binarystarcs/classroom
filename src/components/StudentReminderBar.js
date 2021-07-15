@@ -42,19 +42,24 @@ export const StudentReminderBar = () => {
         >
           <i className="material-icons">delete</i>
         </button>
-        <div className="remindertext"> {student.reminder} </div>
-        <button
-          className={"btn edit-button modal-trigger"}
-          href="#addStudentReminderModal"
-        >
-          <i className="material-icons">edit</i>
-        </button>
-        <button
-          className="btn cancel-button grey"
-          onClick={returnToMainReminder}
-        >
-          <i className="material-icons">cancel</i>
-        </button>
+        <div className="flex-vertical">
+          <div className="studentnameheader"> {student.name} </div>
+          <div className="remindertext"> {student.reminder} </div>
+        </div>
+        <div className="rightbuttons">
+          <button
+            className={"btn edit-button modal-trigger"}
+            href="#addStudentReminderModal"
+          >
+            <i className="material-icons">edit</i>
+          </button>
+          <button
+            className="btn cancel-button grey"
+            onClick={returnToMainReminder}
+          >
+            <i className="material-icons">cancel</i>
+          </button>
+        </div>
       </div>
       <StudentReminderModal />
     </Fragment>

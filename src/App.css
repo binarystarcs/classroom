@@ -139,6 +139,16 @@ h2 {
   grid-column-end: 3;
 }
 
+.flex-vertical {
+  display: flex;
+  flex-direction: column;
+}
+
+.studentnameheader {
+  font-size: 1em;
+  font-style: italic;
+}
+
 .student-progress-right {
   grid-row-start: 2;
   grid-row-end: 3;
