@@ -32,7 +32,7 @@ export const ProgressScaleBar = () => {
             <i className="material-icons">chevron_left</i>
           </button>
         </div>
-        <div className="remindertext">{getDisplayScale()} &#10003;</div>
+        <div className="remindertext">{getDisplayScale()}</div>
         <button
           className={`btn next-button ${
             current_scale < progress_scales.length - 1 ? "" : "disabled"

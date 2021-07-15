@@ -19,6 +19,7 @@ import {
   SET_CURRENT_DESK,
   SWAP_STUDENTS,
   TOGGLE_SHOW_REMINDERS,
+  TOGGLE_SWAPPING,
 } from "../types";
 
 const ClassroomState = (props) => {
@@ -67,9 +68,10 @@ const ClassroomState = (props) => {
     class_reminders: ["alpha", "beta", "gamma", "delta"],
     current_reminder: 1, // index in class_reminders array
     current_scale: 0, // index in progress_scales array
-    current_desk: 0, // id attribute of the desk
+    current_desk: null, // id attribute of the desk
     show_reminders: true,
     is_flipped: false,
+    is_swapping: false,
   };
   const [state, dispatch] = useReducer(classroomReducer, initialState);
 
@@ -140,6 +142,10 @@ const ClassroomState = (props) => {
     dispatch({ type: FLIP_CLASSROOM, payload: null });
   };
 
+  const toggleSwapping = () => {
+    dispatch({ type: TOGGLE_SWAPPING, payload: null });
+  };
+
   return (
     <ClassroomContext.Provider
       value={{
@@ -169,6 +175,8 @@ const ClassroomState = (props) => {
         toggleShowReminders,
         cycleStudentFlag,
         flipClassroom,
+        toggleSwapping,
+        is_swapping: state.is_swapping,
         is_flipped: state.is_flipped,
       }}
     >

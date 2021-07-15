@@ -109,6 +109,10 @@ h2 {
   grid-row-end: 2;
   grid-column-start: 1;
   grid-column-end: 4;
+  min-width: 50%;
+  min-height: 50%;
+  text-align: center;
+  align-self: flex-end;
 }
 
 .student-flag {

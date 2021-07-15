@@ -9,13 +9,20 @@ export const Toolbar = () => {
     decrementCurrentProgressScale,
     incrementCurrentProgressScale,
     flipClassroom,
+    toggleSwapping,
+    is_swapping,
+    is_flipped,
+    show_reminders,
   } = classroomContext;
   return (
     <div className="toolbar">
       <button className="btn btn-large red exit-button">
         <i className="material-icons">exit_to_app</i>
       </button>
-      <button className="btn btn-large grey swap-button">
+      <button
+        className={`btn btn-large ${!is_swapping && "grey"} swap-button`}
+        onClick={toggleSwapping}
+      >
         <i className="material-icons">sync</i>
       </button>
 
@@ -26,7 +33,7 @@ export const Toolbar = () => {
         <i className="material-icons">chevron_right</i>
       </button>
       <button
-        className="btn btn-large settings-button grey"
+        className={`btn btn-large ${show_reminders && "grey"} settings-button`}
         onClick={toggleShowReminders}
       >
         <i className="material-icons">settings</i>
@@ -38,7 +45,7 @@ export const Toolbar = () => {
         <i className="material-icons">chevron_left</i>
       </button>
       <button
-        className="btn btn-large mirror-button grey"
+        className={`btn btn-large ${!is_flipped && "grey"} mirror-button`}
         onClick={flipClassroom}
       >
         <i className="material-icons">swap_vert</i>

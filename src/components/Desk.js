@@ -10,9 +10,13 @@ export const Desk = (props) => {
     desk_size_x,
     desk_size_y,
     is_flipped,
+    is_swapping,
+    current_desk,
+    setCurrentDesk,
     decrementStudentProgress,
     incrementStudentProgress,
     cycleStudentFlag,
+    swapStudents,
   } = classroomContext;
   const { desk } = props;
   const findStudent = () => {
@@ -25,7 +29,7 @@ export const Desk = (props) => {
 
   const current_student = findStudent();
 
-  const FLAG_COLORS = ["black", "red", "green", "yellow"];
+  const FLAG_COLORS = ["black", "red", "green", "blue"];
 
   const generateStyle = () => {
     let styleObject = {
@@ -44,20 +48,36 @@ export const Desk = (props) => {
       styleObject = { ...styleObject, left: desk.x + "%", top: desk.y + "%" };
     }
     if (current_student && current_student.flag) {
-      styleObject.borderWidth = "4px";
+      styleObject.borderWidth = "5px";
       styleObject.borderColor = FLAG_COLORS[current_student.flag];
+    }
+    if (current_student && current_student.reminder !== null) {
+      styleObject = { ...styleObject, backgroundColor: "yellow" };
     }
     return styleObject;
   };
 
+  const handleNameClick = () => {
+    if (!is_swapping) {
+      if (students.some((s) => s.desk_id === desk.id)) setCurrentDesk(desk.id);
+    } else if (is_swapping) {
+      if (current_desk === null) {
+        setCurrentDesk(desk.id);
+      } else {
+        swapStudents(current_desk, desk.id);
+        setCurrentDesk(null);
+      }
+    }
+  };
+
   return (
     <div className="desk" style={generateStyle()}>
+      <div className="student-name" onClick={handleNameClick}>
+        {current_student ? current_student.name : ""}
+      </div>
       {current_student && (
         <Fragment>
           {" "}
-          <div className="student-name">
-            {current_student ? current_student.name : ""}
-          </div>
           <button
             className="mini-button student-progress-left"
             onClick={() => decrementStudentProgress(desk.id)}

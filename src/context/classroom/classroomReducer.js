@@ -17,6 +17,7 @@ import {
   STUDENT_FLAG_COUNT,
   SWAP_STUDENTS,
   TOGGLE_SHOW_REMINDERS,
+  TOGGLE_SWAPPING,
 } from "../types";
 
 export default (state, action) => {
@@ -157,6 +158,12 @@ export default (state, action) => {
       return {
         ...state,
         is_flipped: !state.is_flipped,
+      };
+    case TOGGLE_SWAPPING:
+      return {
+        ...state,
+        current_desk: null,
+        is_swapping: !state.is_swapping,
       };
     default:
       return state;
