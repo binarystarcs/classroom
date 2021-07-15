@@ -46,7 +46,6 @@ export const StudentReminderBar = () => {
         <button
           className={"btn edit-button modal-trigger"}
           href="#addStudentReminderModal"
-          onClick={() => console.log("Edit reminder clicked")}
         >
           <i className="material-icons">edit</i>
         </button>
