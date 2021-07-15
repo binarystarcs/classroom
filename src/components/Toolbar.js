@@ -9,6 +9,8 @@ export const Toolbar = () => {
     decrementCurrentProgressScale,
     incrementCurrentProgressScale,
     flipClassroom,
+    current_scale,
+    progress_scales,
     toggleSwapping,
     is_swapping,
     is_flipped,
@@ -27,7 +29,9 @@ export const Toolbar = () => {
       </button>
 
       <button
-        className="btn btn-large next-progress-button grey"
+        className={`btn btn-large next-progress-button grey ${
+          current_scale === progress_scales.length - 1 && "disabled"
+        }`}
         onClick={incrementCurrentProgressScale}
       >
         <i className="material-icons">chevron_right</i>
@@ -39,7 +43,9 @@ export const Toolbar = () => {
         <i className="material-icons">settings</i>
       </button>
       <button
-        className="btn btn-large previous-progress-button grey"
+        className={`btn btn-large previous-progress-button grey ${
+          current_scale === 0 && "disabled"
+        }`}
         onClick={decrementCurrentProgressScale}
       >
         <i className="material-icons">chevron_left</i>

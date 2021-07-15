@@ -71,6 +71,17 @@ export const Desk = (props) => {
     }
   };
 
+  const isProgressScaleNonZero = () => {
+    return current_student.progress[current_scale] !== 0;
+  };
+
+  const isProgressScaleNonMax = () => {
+    return (
+      current_student.progress[current_scale] <
+      progress_scales[current_scale].length - 1
+    );
+  };
+
   return (
     <div className="desk" style={generateStyle()}>
       <div className="student-name" onClick={handleNameClick}>
@@ -79,12 +90,14 @@ export const Desk = (props) => {
       {current_student && (
         <Fragment>
           {" "}
-          <button
-            className="mini-button student-progress-left"
-            onClick={() => decrementStudentProgress(desk.id)}
-          >
-            &lt;
-          </button>
+          {isProgressScaleNonZero() && (
+            <button
+              className="mini-button student-progress-left"
+              onClick={() => decrementStudentProgress(desk.id)}
+            >
+              &lt;
+            </button>
+          )}
           <div className="student-progress-text">
             {prettyDisplay(
               progress_scales[current_scale][
@@ -97,13 +110,15 @@ export const Desk = (props) => {
             onClick={() => {
               cycleStudentFlag(desk.id);
             }}
-          ></div>
-          <button
-            className="mini-button student-progress-right"
-            onClick={() => incrementStudentProgress(desk.id)}
-          >
-            &gt;
-          </button>
+          ></div>{" "}
+          {isProgressScaleNonMax() && (
+            <button
+              className="mini-button student-progress-right"
+              onClick={() => incrementStudentProgress(desk.id)}
+            >
+              &gt;
+            </button>
+          )}
         </Fragment>
       )}
     </div>
