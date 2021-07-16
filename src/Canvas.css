@@ -1,0 +1,26 @@
+.draggable-desk {
+  position: fixed;
+  width: 16%;
+  height: 10%;
+  left: 20%;
+  top: 50%;
+  border: 1px hsl(0, 0%, 10%) solid;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.classroom-editor {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+}
+
+.draggable-desk-label {
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+}
