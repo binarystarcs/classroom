@@ -12,19 +12,15 @@ export const ClassroomEditor = () => {
   const [currentDraggedDesk, setCurrentDraggedDesk] = useState(null);
 
   const widthPixelsToPercent = (pixels) => {
-    console.log(classroomEditorDiv.current);
-    console.log("Width", pixels, classroomEditorDiv.current.clientWidth);
     return (pixels / classroomEditorDiv.current.clientWidth) * 100;
   };
 
   const heightPixelsToPercent = (pixels) => {
-    console.log("Height", pixels, classroomEditorDiv.current.clientHeight);
     return (pixels / classroomEditorDiv.current.clientHeight) * 100;
   };
 
   const handleMouseMove = (e) => {
     if (currentDraggedDesk !== null) {
-      console.log(`Mouse moving with desk ${currentDraggedDesk}.`);
       setDeskPositions(
         deskPositions.map((desk, index) =>
           String(index) === currentDraggedDesk

@@ -6,6 +6,7 @@ import { Toolbar } from "./components/Toolbar";
 import M from "materialize-css/dist/js/materialize.min.js";
 
 import ClassroomState from "./context/classroom/classroomState";
+import GlobalState from "./context/global/globalState";
 import { TopBarAbstraction } from "./components/TopBarAbstraction";
 import { ClassroomSection } from "./components/ClasroomSection";
 
@@ -16,14 +17,16 @@ function App() {
     M.AutoInit();
   });
   return (
-    // <ClassroomState>
-    //   <div className="fullscreen">
-    //     <TopBarAbstraction />
-    //     <ClassroomSection />
-    //     <Toolbar />
-    //   </div>
-    // </ClassroomState>
-    <ClassroomEditor />
+    <GlobalState>
+      <ClassroomState>
+        <div className="fullscreen">
+          <TopBarAbstraction />
+          <ClassroomSection />
+          <Toolbar />
+        </div>
+      </ClassroomState>
+    </GlobalState>
+    // <ClassroomEditor />
   );
 }
 

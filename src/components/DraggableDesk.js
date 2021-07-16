@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect } from "react";
 
 export const DraggableDesk = (props) => {
   const { id, desk, setCurrentDraggedDesk } = props;
@@ -9,8 +9,7 @@ export const DraggableDesk = (props) => {
     deskDiv.current.style.top = desk.y + "%";
   }, [desk]);
 
-  const handleMouseDown = (e) => {
-    console.log("Mouse down", e);
+  const handleMouseDown = () => {
     setCurrentDraggedDesk(id);
   };
 
