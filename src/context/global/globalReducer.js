@@ -217,7 +217,7 @@ export default (state, action) => {
     case DELETE_CURRENT_ROOM:
       return {
         ...state,
-        rooms: state.sets.filter((room) => room.name !== state.current_room),
+        rooms: state.rooms.filter((room) => room.name !== state.current_room),
         seatings: state.seatings.filter(
           (seating) => seating.room_name !== state.current_room
         ),

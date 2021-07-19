@@ -2,9 +2,15 @@ import React, { useContext } from "react";
 import "materialize-css/dist/css/materialize.min.css";
 import GlobalContext from "../context/global/globalContext";
 
-export const DeleteRoomModal = () => {
+export const DeleteRoomModal = (props) => {
   const globalContext = useContext(GlobalContext);
-  const { deleteCurrentRoom, current_room } = globalContext;
+  const { deleteCurrentRoom, current_room, error } = globalContext;
+  const { clearRoomSelect } = props;
+
+  const handleDeleteRoom = () => {
+    deleteCurrentRoom();
+    if (error === null) clearRoomSelect();
+  };
 
   return (
     <div id="deleteRoomModal" className="modal">
@@ -14,11 +20,11 @@ export const DeleteRoomModal = () => {
           be undone.
         </p>
         <div className="add-reminder-modal-footer modal-footer">
-          <button className="modal-close red btn">DELETE</button>
-
-          <button className="modal-close btn" onClick={deleteCurrentRoom}>
-            Cancel
+          <button className="modal-close red btn" onClick={handleDeleteRoom}>
+            DELETE
           </button>
+
+          <button className="modal-close btn">Cancel</button>
         </div>
       </div>
     </div>

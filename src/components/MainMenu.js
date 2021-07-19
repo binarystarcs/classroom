@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, Fragment } from "react";
+import React, { useContext, useEffect, useRef, Fragment } from "react";
 import GlobalContext from "../context/global/globalContext";
 import "materialize-css/dist/css/materialize.min.css";
 import M from "materialize-css/dist/js/materialize.min.js";
@@ -7,21 +7,31 @@ import Select from "react-select";
 import { AddSetModal } from "./AddSetModal";
 import { AddRoomModal } from "./AddRoomModal";
 import { DeleteSetModal } from "./DeleteSetModal";
+import { DeleteRoomModal } from "./DeleteRoomModal";
 
 export const MainMenu = () => {
   useEffect(() => {
     M.AutoInit();
   });
+  const setSelect = useRef();
+  const roomSelect = useRef();
   const globalContext = useContext(GlobalContext);
   const {
     rooms,
     sets,
     current_room,
     current_set,
-    error,
     setCurrentSet,
     setCurrentRoom,
   } = globalContext;
+
+  const clearSetSelect = () => {
+    setSelect.current.state.value = null;
+  };
+
+  const clearRoomSelect = () => {
+    roomSelect.current.state.value = null;
+  };
 
   const handleSetChange = (option) => {
     console.log(`Set changed to ${option.value}`);
@@ -54,6 +64,7 @@ export const MainMenu = () => {
             label: setObj.name,
           }))}
           onChange={handleSetChange}
+          ref={setSelect}
         />
         <button className="btn-large modal-trigger" href="#addSetModal">
           <i className="material-icons">add</i>
@@ -62,6 +73,7 @@ export const MainMenu = () => {
           className={`btn-large red modal-trigger ${
             current_room === null && "disabled"
           }`}
+          href="#deleteRoomModal"
         >
           <i className="material-icons">delete</i>
         </button>
@@ -74,15 +86,23 @@ export const MainMenu = () => {
             label: roomObj.name,
           }))}
           onChange={handleRoomChange}
+          ref={roomSelect}
         />
         <button className="btn-large modal-trigger" href="#addRoomModal">
           <i className="material-icons">add</i>
         </button>
-        <button className="btn-large launch-button">Launch</button>
+        <button
+          className={`btn-large launch-button ${
+            (current_set === null || current_room === null) && "disabled"
+          }`}
+        >
+          Launch
+        </button>
       </div>
       <AddSetModal />
       <AddRoomModal />
-      <DeleteSetModal />
+      <DeleteSetModal clearSetSelect={clearSetSelect} />
+      <DeleteRoomModal clearRoomSelect={clearRoomSelect} />
     </Fragment>
   );
 };
