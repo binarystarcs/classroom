@@ -14,6 +14,7 @@ import {
   EDIT_CURRENT_SET,
   SET_CURRENT_ROOM,
   SET_CURRENT_SET,
+  UPDATE_LOCAL_STORAGE,
 } from "../types";
 
 const GlobalState = (props) => {
@@ -117,10 +118,12 @@ const GlobalState = (props) => {
 
   const addRoom = (room_name) => {
     dispatch({ type: ADD_ROOM, payload: room_name });
+    dispatch({ type: UPDATE_LOCAL_STORAGE, payload: null });
   };
 
   const addSet = (set_name) => {
     dispatch({ type: ADD_SET, payload: set_name });
+    dispatch({ type: UPDATE_LOCAL_STORAGE, payload: null });
   };
 
   const setCurrentSet = (set_name) => {
@@ -133,22 +136,27 @@ const GlobalState = (props) => {
 
   const updateCurrentRoom = (room_data) => {
     dispatch({ type: EDIT_CURRENT_ROOM, payload: room_data });
+    dispatch({ type: UPDATE_LOCAL_STORAGE, payload: null });
   };
 
   const updateCurrentSet = (set_data) => {
     dispatch({ type: EDIT_CURRENT_SET, payload: set_data });
+    dispatch({ type: UPDATE_LOCAL_STORAGE, payload: null });
   };
 
   const updateCurrentSeating = (seating_data) => {
     dispatch({ type: EDIT_CURRENT_SEATING, payload: seating_data });
+    dispatch({ type: UPDATE_LOCAL_STORAGE, payload: null });
   };
 
   const deleteCurrentSet = () => {
     dispatch({ type: DELETE_CURRENT_SET, payload: null });
+    dispatch({ type: UPDATE_LOCAL_STORAGE, payload: null });
   };
 
   const deleteCurrentRoom = () => {
     dispatch({ type: DELETE_CURRENT_ROOM, payload: null });
+    dispatch({ type: UPDATE_LOCAL_STORAGE, payload: null });
   };
 
   return (

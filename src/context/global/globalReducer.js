@@ -11,7 +11,32 @@ import {
   EDIT_CURRENT_SET,
   SET_CURRENT_ROOM,
   SET_CURRENT_SET,
+  UPDATE_LOCAL_STORAGE,
 } from "../types";
+
+const updateLocalStorage = (state) => {
+  const storedSets = JSON.parse(window.localStorage.getItem("sets"));
+  const updatedSets = state.sets.map((setObj) => {
+    const storedSet = storedSets.find((storedObj) =>
+      storedObj.name === setObj.name ? 2 : 0
+    );
+    if (!storedSet) return setObj;
+    return {
+      name: setObj.name,
+      reminders: storedSet.reminders,
+      students: setObj.students.map((student) => ({
+        id: student.id,
+        name: student.name,
+        reminders:
+          storedSet.students.find((s) => s.id === student.id)?.reminders ||
+          null,
+      })),
+    };
+  });
+  window.localStorage.setItem("sets", JSON.stringify(updatedSets));
+  window.localStorage.setItem("rooms", JSON.stringify(state.rooms));
+  window.localStorage.setItem("seatings", JSON.stringify(state.seatings));
+};
 
 const updateSeatingWithClass = (seating_list, set_list, room_desk_count) => {
   let expanded_seating_list = seating_list;
@@ -225,6 +250,9 @@ export default (state, action) => {
         current_seating: null,
         error: null,
       };
+    case UPDATE_LOCAL_STORAGE:
+      updateLocalStorage(state);
+      return state;
     default:
       return state;
   }

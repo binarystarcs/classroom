@@ -1,7 +1,7 @@
 import "./App.css";
 import "./Canvas.css";
 import { useEffect } from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import { Toolbar } from "./components/Toolbar";
 import M from "materialize-css/dist/js/materialize.min.js";
