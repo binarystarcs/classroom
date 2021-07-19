@@ -168,3 +168,9 @@ h2 {
   background: none;
   border: none;
 }
+
+.main-menu-container {
+  margin: 3rem;
+  display: grid;
+  grid-template-columns: 30% 70%;
+}

@@ -63,7 +63,7 @@ export default (state, action) => {
           state.seatings.find(
             (seating) =>
               seating.room_name === state.current_room &&
-              seating.class_name === state.current_set
+              seating.class_name === action.payload
           ) || null,
       };
     case SET_CURRENT_ROOM:
@@ -80,7 +80,7 @@ export default (state, action) => {
         current_seating:
           state.seatings.find(
             (seating) =>
-              seating.room_name === state.current_room &&
+              seating.room_name === action.payload &&
               seating.class_name === state.current_set
           ) || null,
       };

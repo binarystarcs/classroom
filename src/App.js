@@ -11,6 +11,7 @@ import { TopBarAbstraction } from "./components/TopBarAbstraction";
 import { ClassroomSection } from "./components/ClasroomSection";
 
 import ClassroomEditor from "./components/ClassroomEditor";
+import { MainMenu } from "./components/MainMenu";
 
 function App() {
   useEffect(() => {
@@ -19,11 +20,12 @@ function App() {
   return (
     <GlobalState>
       <ClassroomState>
-        <div className="fullscreen">
+        {/* <div className="fullscreen">
           <TopBarAbstraction />
           <ClassroomSection />
           <Toolbar />
-        </div>
+        </div> */}
+        <MainMenu />
       </ClassroomState>
     </GlobalState>
     // <ClassroomEditor />

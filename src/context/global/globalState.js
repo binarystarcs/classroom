@@ -22,6 +22,7 @@ const GlobalState = (props) => {
         desk_width: 16,
         desk_height: 12,
         desks: [
+          // Note desk ids are always 0..length-1
           { id: 0, x: 20, y: 40 },
           { id: 1, x: 44, y: 40 },
           { id: 2, x: 68, y: 40 },
@@ -99,6 +100,7 @@ const GlobalState = (props) => {
         students: [2, null, 4, 3],
       },
     ],
+    error: null,
   };
 
   const [state, dispatch] = useReducer(globalReducer, initialState);
@@ -147,6 +149,7 @@ const GlobalState = (props) => {
         seatings: state.seatings,
         current_room: state.current_room,
         current_set: state.current_set,
+        error: state.error,
         clearCurrentSet,
         clearCurrentRoom,
         addSet,
