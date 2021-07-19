@@ -7,6 +7,8 @@ import {
   ADD_SET,
   CLEAR_CURRENT_ROOM,
   CLEAR_CURRENT_SET,
+  DELETE_CURRENT_ROOM,
+  DELETE_CURRENT_SET,
   EDIT_CURRENT_ROOM,
   EDIT_CURRENT_SEATING,
   EDIT_CURRENT_SET,
@@ -141,6 +143,14 @@ const GlobalState = (props) => {
     dispatch({ type: EDIT_CURRENT_SEATING, payload: seating_data });
   };
 
+  const deleteCurrentSet = () => {
+    dispatch({ type: DELETE_CURRENT_SET, payload: null });
+  };
+
+  const deleteCurrentRoom = () => {
+    dispatch({ type: DELETE_CURRENT_ROOM, payload: null });
+  };
+
   return (
     <GlobalContext.Provider
       value={{
@@ -159,6 +169,8 @@ const GlobalState = (props) => {
         updateCurrentRoom,
         updateCurrentSeating,
         updateCurrentSet,
+        deleteCurrentSet,
+        deleteCurrentRoom,
       }}
     >
       {props.children}

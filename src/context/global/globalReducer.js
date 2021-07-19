@@ -4,6 +4,8 @@ import {
   ADD_SET,
   CLEAR_CURRENT_ROOM,
   CLEAR_CURRENT_SET,
+  DELETE_CURRENT_ROOM,
+  DELETE_CURRENT_SET,
   EDIT_CURRENT_ROOM,
   EDIT_CURRENT_SEATING,
   EDIT_CURRENT_SET,
@@ -199,6 +201,28 @@ export default (state, action) => {
           ...state.current_seating,
           students: action.payload,
         },
+        error: null,
+      };
+    case DELETE_CURRENT_SET:
+      return {
+        ...state,
+        sets: state.sets.filter((setObj) => setObj.name !== state.current_set),
+        seatings: state.seatings.filter(
+          (seating) => seating.class_name !== state.current_set
+        ),
+        current_set: null,
+        current_seating: null,
+        error: null,
+      };
+    case DELETE_CURRENT_ROOM:
+      return {
+        ...state,
+        rooms: state.sets.filter((room) => room.name !== state.current_room),
+        seatings: state.seatings.filter(
+          (seating) => seating.room_name !== state.current_room
+        ),
+        current_room: null,
+        current_seating: null,
         error: null,
       };
     default:
