@@ -1,6 +1,7 @@
 import "./App.css";
 import "./Canvas.css";
 import { useEffect } from "react";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 import { Toolbar } from "./components/Toolbar";
 import M from "materialize-css/dist/js/materialize.min.js";
@@ -18,17 +19,30 @@ function App() {
     M.AutoInit();
   });
   return (
-    <GlobalState>
-      <ClassroomState>
-        {/* <div className="fullscreen">
-          <TopBarAbstraction />
-          <ClassroomSection />
-          <Toolbar />
-        </div> */}
-        <MainMenu />
-      </ClassroomState>
-    </GlobalState>
-    // <ClassroomEditor />
+    <Router>
+      <GlobalState>
+        <ClassroomState>
+          <Switch>
+            <Route path="/setlist">
+              <MainMenu />
+            </Route>
+            <Route path="/layout">
+              <ClassroomEditor />
+            </Route>
+            <Route path="/lesson">
+              <div className="fullscreen">
+                <TopBarAbstraction />
+                <ClassroomSection />
+                <Toolbar />
+              </div>
+            </Route>
+            <Route path="/">
+              <MainMenu />
+            </Route>
+          </Switch>
+        </ClassroomState>
+      </GlobalState>
+    </Router>
   );
 }
 

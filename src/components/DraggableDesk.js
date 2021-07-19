@@ -1,13 +1,15 @@
 import React, { useRef, useEffect } from "react";
 
 export const DraggableDesk = (props) => {
-  const { id, desk, setCurrentDraggedDesk } = props;
+  const { id, desk, setCurrentDraggedDesk, width, height } = props;
   let deskDiv = useRef();
 
   useEffect(() => {
     deskDiv.current.style.left = desk.x + "%";
     deskDiv.current.style.top = desk.y + "%";
-  }, [desk]);
+    deskDiv.current.style.width = width + "%";
+    deskDiv.current.style.height = height + "%";
+  }, [desk, width, height]);
 
   const handleMouseDown = () => {
     setCurrentDraggedDesk(id);

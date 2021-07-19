@@ -187,3 +187,7 @@ h2 {
   grid-column-start: 1;
   grid-column-end: -1;
 }
+
+.rotated {
+  transform: rotate(90deg);
+}

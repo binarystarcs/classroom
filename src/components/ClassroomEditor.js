@@ -1,8 +1,17 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, Fragment } from "react";
+import "materialize-css/dist/css/materialize.min.css";
+
 import { DraggableDesk } from "./DraggableDesk";
+import { Link } from "react-router-dom";
 
 export const ClassroomEditor = () => {
   const classroomEditorDiv = useRef();
+  const [width, setWidth] = useState(16);
+  const [height, setHeight] = useState(10);
+  const MIN_WIDTH = 8;
+  const MAX_WIDTH = 25;
+  const MIN_HEIGHT = 8;
+  const MAX_HEIGHT = 30;
 
   const [deskPositions, setDeskPositions] = useState([
     { x: 10, y: 20 },
@@ -49,23 +58,106 @@ export const ClassroomEditor = () => {
     setCurrentDraggedDesk(null);
   };
 
+  const increaseWidth = () => {
+    setWidth(width >= MAX_WIDTH ? MAX_WIDTH : width + 1);
+  };
+
+  const increaseHeight = () => {
+    setHeight(height >= MAX_HEIGHT ? MAX_HEIGHT : height + 1);
+  };
+
+  const decreaseWidth = () => {
+    setWidth(width <= MIN_WIDTH ? MIN_WIDTH : width - 1);
+  };
+
+  const decreaseHeight = () => {
+    setHeight(height <= MIN_HEIGHT ? MIN_HEIGHT : height - 1);
+  };
+
+  const addDesk = () => {
+    setDeskPositions([...deskPositions, { x: 8, y: 12 }]);
+  };
+
+  const removeDesk = () => {
+    setDeskPositions(deskPositions.slice(0, -1));
+  };
+
   return (
-    <div
-      className="classroom-editor"
-      ref={classroomEditorDiv}
-      onMouseMove={handleMouseMove}
-      onMouseUp={handleMouseUp}
-    >
-      <h3>This is a classroom editor</h3>
-      {deskPositions.map((desk, index) => (
-        <DraggableDesk
-          key={`${index}`}
-          id={`${index}`}
-          desk={desk}
-          setCurrentDraggedDesk={setCurrentDraggedDesk}
-        />
-      ))}
-    </div>
+    <Fragment>
+      <div
+        className="classroom-editor"
+        ref={classroomEditorDiv}
+        onMouseMove={handleMouseMove}
+        onMouseUp={handleMouseUp}
+      >
+        <h3>This is a classroom editor</h3>
+        {deskPositions.map((desk, index) => (
+          <DraggableDesk
+            key={`${index}`}
+            id={`${index}`}
+            desk={desk}
+            setCurrentDraggedDesk={setCurrentDraggedDesk}
+            width={width}
+            height={height}
+          />
+        ))}
+      </div>
+      <div className="fixed-action-btn">
+        <button className="btn-floating btn-large red">
+          <i className="large material-icons">settings</i>
+        </button>
+        <ul>
+          <li>
+            <button className="btn-floating btn-large" onClick={addDesk}>
+              <i className="material-icons">add</i>
+            </button>
+          </li>
+          <li>
+            <button className="btn-floating btn-large" onClick={removeDesk}>
+              <i className="material-icons">remove</i>
+            </button>
+          </li>
+          <li>
+            <button className="btn-floating btn-large" onClick={decreaseHeight}>
+              <i className="material-icons">unfold_less</i>
+            </button>
+          </li>
+          <li>
+            <button className="btn-floating btn-large" onClick={increaseHeight}>
+              <i className="material-icons">unfold_more</i>
+            </button>
+          </li>
+          <li>
+            <button
+              className="btn-floating btn-large rotated"
+              onClick={decreaseWidth}
+            >
+              <i className="material-icons rotated">unfold_less</i>
+            </button>
+          </li>
+          <li>
+            <button
+              className="btn-floating btn-large rotated"
+              onClick={increaseWidth}
+            >
+              <i className="material-icons rotated">unfold_more</i>
+            </button>
+          </li>
+          <li>
+            <button className="btn-floating btn-large red">
+              <i className="material-icons">save</i>
+            </button>
+          </li>
+          <li>
+            <Link to="/">
+              <button className="btn-floating btn-large red">
+                <i className="material-icons">exit_to_app</i>
+              </button>
+            </Link>
+          </li>
+        </ul>
+      </div>
+    </Fragment>
   );
 };
 

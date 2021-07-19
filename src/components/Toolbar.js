@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import "materialize-css/dist/css/materialize.min.css";
 import ClassroomContext from "../context/classroom/classroomContext";
+import { Link } from "react-router-dom";
 
 export const Toolbar = () => {
   const classroomContext = useContext(ClassroomContext);
@@ -18,9 +19,11 @@ export const Toolbar = () => {
   } = classroomContext;
   return (
     <div className="toolbar">
-      <button className="btn btn-large red exit-button">
-        <i className="material-icons">exit_to_app</i>
-      </button>
+      <Link to="/">
+        <button className="btn btn-large red exit-button">
+          <i className="material-icons">exit_to_app</i>
+        </button>
+      </Link>
       <button
         className={`btn btn-large ${!is_swapping && "grey"} swap-button`}
         onClick={toggleSwapping}
