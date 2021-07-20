@@ -70,7 +70,7 @@ const GlobalState = (props) => {
       },
       {
         name: "Dark Arts Defence",
-        reminders: null,
+        reminders: [],
         students: [
           {
             id: 4,
@@ -167,6 +167,7 @@ const GlobalState = (props) => {
         seatings: state.seatings,
         current_room: state.current_room,
         current_set: state.current_set,
+        current_seating: state.current_seating,
         error: state.error,
         clearCurrentSet,
         clearCurrentRoom,

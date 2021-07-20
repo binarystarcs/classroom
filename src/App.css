@@ -183,7 +183,7 @@ h2 {
   align-items: center;
 }
 
-.launch-button {
+.launch-button-link {
   grid-column-start: 1;
   grid-column-end: -1;
 }

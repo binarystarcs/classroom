@@ -8,6 +8,7 @@ import { AddSetModal } from "./AddSetModal";
 import { AddRoomModal } from "./AddRoomModal";
 import { DeleteSetModal } from "./DeleteSetModal";
 import { DeleteRoomModal } from "./DeleteRoomModal";
+import { Link } from "react-router-dom";
 
 export const MainMenu = () => {
   useEffect(() => {
@@ -91,13 +92,17 @@ export const MainMenu = () => {
         <button className="btn-large modal-trigger" href="#addRoomModal">
           <i className="material-icons">add</i>
         </button>
-        <button
-          className={`btn-large launch-button ${
-            (current_set === null || current_room === null) && "disabled"
-          }`}
-        >
-          Launch
-        </button>
+        <div className="launch-button-link">
+          <Link to="/lesson">
+            <button
+              className={`btn-large launch-button ${
+                (current_set === null || current_room === null) && "disabled"
+              }`}
+            >
+              Launch
+            </button>
+          </Link>
+        </div>
       </div>
       <AddSetModal />
       <AddRoomModal />

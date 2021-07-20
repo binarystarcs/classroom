@@ -16,6 +16,7 @@ import {
   INCREMENT_CURRENT_PROGRESS_SCALE,
   INCREMENT_CURRENT_REMINDER,
   INCREMENT_STUDENT_PROGRESS,
+  INITIALIZE_CLASSROOM_CONTEXT,
   SET_CURRENT_DESK,
   SWAP_STUDENTS,
   TOGGLE_SHOW_REMINDERS,
@@ -146,6 +147,17 @@ const ClassroomState = (props) => {
     dispatch({ type: TOGGLE_SWAPPING, payload: null });
   };
 
+  const initializeClassroomContext = (
+    current_set,
+    current_room,
+    current_seating
+  ) => {
+    dispatch({
+      type: INITIALIZE_CLASSROOM_CONTEXT,
+      payload: { current_set, current_room, current_seating },
+    });
+  };
+
   return (
     <ClassroomContext.Provider
       value={{
@@ -176,6 +188,7 @@ const ClassroomState = (props) => {
         cycleStudentFlag,
         flipClassroom,
         toggleSwapping,
+        initializeClassroomContext,
         is_swapping: state.is_swapping,
         is_flipped: state.is_flipped,
       }}

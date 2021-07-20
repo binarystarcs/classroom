@@ -13,6 +13,7 @@ import {
   INCREMENT_CURRENT_PROGRESS_SCALE,
   INCREMENT_CURRENT_REMINDER,
   INCREMENT_STUDENT_PROGRESS,
+  INITIALIZE_CLASSROOM_CONTEXT,
   SET_CURRENT_DESK,
   STUDENT_FLAG_COUNT,
   SWAP_STUDENTS,
@@ -164,6 +165,45 @@ export default (state, action) => {
         ...state,
         current_desk: null,
         is_swapping: !state.is_swapping,
+      };
+    case INITIALIZE_CLASSROOM_CONTEXT:
+      if (
+        !action.payload.current_set ||
+        !action.payload.current_room ||
+        !action.payload.current_seating
+      )
+        return state;
+      return {
+        ...state,
+        students: action.payload.current_set.students
+          .map((student) => ({
+            id: student.id,
+            name: student.name,
+            desk_id: action.payload.current_seating.students.indexOf(
+              student.id
+            ),
+            reminder: student.reminder,
+            progress: [0, 0, 0, 0, 0],
+            flag: 0,
+          }))
+          .filter((student) => student.desk_id !== -1),
+        desks: action.payload.current_room.desks,
+        desk_size_x: action.payload.current_room.desk_width,
+        desk_size_y: action.payload.current_room.desk_height,
+        progress_scales: [
+          ["", "$yes", "$no"],
+          ["", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
+          ["", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
+          ["", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
+          ["", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
+        ],
+        class_reminders: action.payload.current_set.reminders,
+        current_reminder: 0,
+        current_scale: 0,
+        current_desk: null,
+        show_reminders: true,
+        is_flipped: false,
+        is_swapping: false,
       };
     default:
       return state;

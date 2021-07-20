@@ -6,6 +6,7 @@ import { Desk } from "./Desk";
 export const ClassroomSection = () => {
   const classroomContext = useContext(ClassroomContext);
   const { desks } = classroomContext;
+
   return (
     <div className="classroom-section">
       {desks.map((desk) => (
