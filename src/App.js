@@ -11,6 +11,7 @@ import GlobalState from "./context/global/globalState";
 import ClassroomEditor from "./components/ClassroomEditor";
 import { MainMenu } from "./components/MainMenu";
 import { LessonContainer } from "./components/LessonContainer";
+import { SetEditor } from "./components/SetEditor";
 
 function App() {
   useEffect(() => {
@@ -22,7 +23,7 @@ function App() {
         <ClassroomState>
           <Switch>
             <Route path="/setlist">
-              <MainMenu />
+              <SetEditor />
             </Route>
             <Route path="/layout">
               <ClassroomEditor />

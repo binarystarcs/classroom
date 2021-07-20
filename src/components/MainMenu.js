@@ -56,9 +56,11 @@ export const MainMenu = () => {
         >
           <i className="material-icons">delete</i>
         </button>
-        <button className={`btn-large ${current_set === null && "disabled"}`}>
-          <i className="material-icons">edit</i>
-        </button>
+        <Link to="/setlist">
+          <button className={`btn-large ${current_set === null && "disabled"}`}>
+            <i className="material-icons">edit</i>
+          </button>
+        </Link>
         <Select
           options={sets.map((setObj) => ({
             value: setObj.name,
