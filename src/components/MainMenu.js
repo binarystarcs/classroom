@@ -78,9 +78,13 @@ export const MainMenu = () => {
         >
           <i className="material-icons">delete</i>
         </button>
-        <button className={`btn-large ${current_room === null && "disabled"}`}>
-          <i className="material-icons">edit</i>
-        </button>
+        <Link to="/layout">
+          <button
+            className={`btn-large ${current_room === null && "disabled"}`}
+          >
+            <i className="material-icons">edit</i>
+          </button>
+        </Link>
         <Select
           options={rooms.map((roomObj) => ({
             value: roomObj.name,

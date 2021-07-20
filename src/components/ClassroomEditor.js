@@ -1,11 +1,22 @@
-import React, { useState, useRef, Fragment } from "react";
+import React, {
+  useState,
+  useRef,
+  Fragment,
+  useContext,
+  useEffect,
+} from "react";
 import "materialize-css/dist/css/materialize.min.css";
+import M from "materialize-css/dist/js/materialize.min.js";
 
 import { DraggableDesk } from "./DraggableDesk";
 import { Link } from "react-router-dom";
+import GlobalContext from "../context/global/globalContext";
 
 export const ClassroomEditor = () => {
+  const globalContext = useContext(GlobalContext);
+  const { rooms, current_room, updateCurrentRoom, error } = globalContext;
   const classroomEditorDiv = useRef();
+  const exitButton = useRef();
   const [width, setWidth] = useState(16);
   const [height, setHeight] = useState(10);
   const MIN_WIDTH = 8;
@@ -82,6 +93,39 @@ export const ClassroomEditor = () => {
     setDeskPositions(deskPositions.slice(0, -1));
   };
 
+  useEffect(() => {
+    M.AutoInit();
+  });
+
+  useEffect(() => {
+    const room_blueprint = rooms.find((room) => room.name === current_room);
+    setWidth(room_blueprint.desk_width);
+    setHeight(room_blueprint.desk_height);
+    setDeskPositions(
+      room_blueprint.desks.map((desk) => ({ x: desk.x, y: desk.y }))
+    );
+    // eslint-disable-next-line
+  }, []);
+
+  const saveLayout = () => {
+    console.log("Saving layout...");
+    const room_data = {
+      desk_width: width,
+      desk_height: height,
+      desks: deskPositions.map((desk, index) => ({
+        id: index,
+        x: desk.x,
+        y: desk.y,
+      })),
+    };
+    updateCurrentRoom(room_data);
+    console.log("Layout saved");
+    if (error === null) {
+      console.log("Save successful");
+      exitButton.current.click();
+    }
+  };
+
   return (
     <Fragment>
       <div
@@ -144,13 +188,13 @@ export const ClassroomEditor = () => {
             </button>
           </li>
           <li>
-            <button className="btn-floating btn-large red">
+            <button className="btn-floating btn-large red" onClick={saveLayout}>
               <i className="material-icons">save</i>
             </button>
           </li>
           <li>
             <Link to="/">
-              <button className="btn-floating btn-large red">
+              <button className="btn-floating btn-large red" ref={exitButton}>
                 <i className="material-icons">exit_to_app</i>
               </button>
             </Link>

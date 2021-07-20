@@ -38,17 +38,21 @@ const updateLocalStorage = (state) => {
 };
 
 const updateSeatingWithClass = (seating_list, set_list, room_desk_count) => {
+  console.log("Set list", set_list);
   let expanded_seating_list = seating_list;
   for (let i = seating_list.length; i < room_desk_count; i += 1)
     expanded_seating_list.push(null);
+  console.log("Expanded seating list", expanded_seating_list);
   const eliminated_list = expanded_seating_list
     .slice(0, room_desk_count)
     .map((value) =>
       set_list.some((student) => student.id === value) ? value : null
     );
+  console.log("Eliminated list", eliminated_list);
   const unseated_students = set_list
-    .filter((student) => seating_list.some((value) => value === student.id))
+    .filter((student) => !seating_list.some((value) => value === student.id))
     .map((student) => student.id);
+  console.log("Unseated students", unseated_students);
   return eliminated_list.map((value) =>
     value === null
       ? unseated_students.length
@@ -166,11 +170,14 @@ export default (state, action) => {
         ),
         seatings: state.seatings.map((seating) =>
           seating.class_name === state.current_set
-            ? updateSeatingWithClass(
-                seating.students,
-                action.payload,
-                seating.students.length
-              )
+            ? {
+                ...seating,
+                students: updateSeatingWithClass(
+                  seating.students,
+                  action.payload,
+                  seating.students.length
+                ),
+              }
             : seating
         ),
       };
@@ -191,12 +198,16 @@ export default (state, action) => {
         ),
         seatings: state.seatings.map((seating) =>
           seating.room_name === state.current_room
-            ? updateSeatingWithClass(
-                seating.students,
-                state.sets.find((setObj) => setObj.name === seating.class_name)
-                  .students,
-                action.payload.desks.length
-              )
+            ? {
+                ...seating,
+                students: updateSeatingWithClass(
+                  seating.students,
+                  state.sets.find(
+                    (setObj) => setObj.name === seating.class_name
+                  ).students,
+                  action.payload.desks.length
+                ),
+              }
             : seating
         ),
       };
