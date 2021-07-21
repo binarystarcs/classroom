@@ -197,3 +197,15 @@ h2 {
   display: grid;
   grid-template-columns: auto 6rem;
 }
+
+.flex-container {
+  margin-top: 1rem;
+  display: inline-flex;
+  width: 100%;
+  justify-content: stretch;
+}
+
+.btn-wide {
+  width: 100%;
+  margin: 1rem;
+}

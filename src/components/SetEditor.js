@@ -1,11 +1,23 @@
-import React, { Fragment, useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useRef } from "react";
 import GlobalContext from "../context/global/globalContext";
 import "materialize-css/dist/css/materialize.min.css";
+import { Link } from "react-router-dom";
 
 export const SetEditor = () => {
   const globalContext = useContext(GlobalContext);
   const { current_set, sets, updateCurrentSet, error } = globalContext;
   const [studentList, setstudentList] = useState([]);
+  const [newName, setNewName] = useState("");
+  const [newId, setNewId] = useState(0);
+  const discardButton = useRef();
+
+  const getUnusedId = () => {
+    console.log(studentList);
+    if (studentList.length === 0) return 1;
+    const usedids = studentList.map((student) => student.id);
+    console.log(usedids);
+    return Math.max(...usedids) + 1;
+  };
 
   useEffect(() => {
     const students_blueprint = sets.find(
@@ -25,6 +37,11 @@ export const SetEditor = () => {
     // eslint-disable-next-line
   }, []);
 
+  useEffect(() => {
+    setNewId(getUnusedId());
+    // eslint-disable-next-line
+  }, [studentList]);
+
   const saveSetlist = () => {
     console.log("Saving set list...");
     updateCurrentSet(studentList);
@@ -32,7 +49,16 @@ export const SetEditor = () => {
       console.log(error);
     } else {
       console.log("Saving successful.");
+      discardButton.current.click();
     }
+  };
+
+  const addStudent = () => {
+    setstudentList([
+      ...studentList,
+      { id: newId, name: newName, reminder: null },
+    ]);
+    setNewName("");
   };
 
   const getNameForId = (id) => {
@@ -93,8 +119,36 @@ export const SetEditor = () => {
               </td>
             </tr>
           ))}
+          <tr>
+            <td className="student-id">{newId}</td>{" "}
+            <td className="student-name">
+              <input
+                type="text"
+                value={newName}
+                onChange={(e) => setNewName(e.target.value)}
+              />
+            </td>
+            <td>
+              <button
+                className="btn-small student-add-button"
+                onClick={addStudent}
+              >
+                <i className="material-icons">add</i>
+              </button>
+            </td>
+          </tr>
         </tbody>
       </table>
+      <div className="flex-container">
+        <button className="btn-large red btn-wide" onClick={saveSetlist}>
+          Update Set List
+        </button>
+        <Link to="/">
+          <button className="btn-large btn-wide" ref={discardButton}>
+            Discard Changes
+          </button>
+        </Link>
+      </div>
     </div>
   );
 };
