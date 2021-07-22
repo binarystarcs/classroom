@@ -12,6 +12,7 @@ import ClassroomEditor from "./components/ClassroomEditor";
 import { MainMenu } from "./components/MainMenu";
 import { LessonContainer } from "./components/LessonContainer";
 import { SetEditor } from "./components/SetEditor";
+import { SeatingEditor } from "./components/SeatingEditor";
 
 function App() {
   useEffect(() => {
@@ -24,6 +25,9 @@ function App() {
           <Switch>
             <Route path="/setlist">
               <SetEditor />
+            </Route>
+            <Route path="/seating">
+              <SeatingEditor />
             </Route>
             <Route path="/layout">
               <ClassroomEditor />

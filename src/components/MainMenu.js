@@ -109,6 +109,17 @@ export const MainMenu = () => {
             </button>
           </Link>
         </div>
+        <div className="launch-button-link">
+          <Link to="/seating">
+            <button
+              className={`btn-large launch-button ${
+                (current_set === null || current_room === null) && "disabled"
+              }`}
+            >
+              Edit Seating Arrangement
+            </button>
+          </Link>
+        </div>
       </div>
       <AddSetModal />
       <AddRoomModal />

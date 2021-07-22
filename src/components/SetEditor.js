@@ -143,10 +143,8 @@ export const SetEditor = () => {
         <button className="btn-large red btn-wide" onClick={saveSetlist}>
           Update Set List
         </button>
-        <Link to="/">
-          <button className="btn-large btn-wide" ref={discardButton}>
-            Discard Changes
-          </button>
+        <Link to="/" className="btn-large btn-wide">
+          <button ref={discardButton}>Discard Changes</button>
         </Link>
       </div>
     </div>
