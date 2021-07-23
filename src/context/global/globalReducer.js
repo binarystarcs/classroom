@@ -50,7 +50,7 @@ const updateSeatingWithClass = (seating_list, set_list, room_desk_count) => {
     );
   console.log("Eliminated list", eliminated_list);
   const unseated_students = set_list
-    .filter((student) => !seating_list.some((value) => value === student.id))
+    .filter((student) => !eliminated_list.some((value) => value === student.id))
     .map((student) => student.id);
   console.log("Unseated students", unseated_students);
   return eliminated_list.map((value) =>

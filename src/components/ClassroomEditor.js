@@ -52,7 +52,6 @@ export const ClassroomEditor = () => {
         )
       );
     }
-    console.log(deskPositions);
   };
 
   const handleMouseUp = () => {
