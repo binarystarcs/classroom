@@ -95,7 +95,7 @@ export const SeatingEditor = () => {
       <button className="btn-large" onClick={saveSeating}>
         SAVE
       </button>
-      <Link to="/" className="btn-large">
+      <Link to="/" ref={discardChanges} className="btn-large">
         EXIT
       </Link>
     </Fragment>

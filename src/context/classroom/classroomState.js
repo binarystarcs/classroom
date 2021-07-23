@@ -20,6 +20,7 @@ import {
   SET_CURRENT_DESK,
   SWAP_STUDENTS,
   TOGGLE_SHOW_REMINDERS,
+  SET_CURRENT_SET_IN_ROOM,
   TOGGLE_SWAPPING,
 } from "../types";
 
@@ -73,8 +74,13 @@ const ClassroomState = (props) => {
     show_reminders: true,
     is_flipped: false,
     is_swapping: false,
+    current_set: null,
   };
   const [state, dispatch] = useReducer(classroomReducer, initialState);
+
+  const setCurrentSet = (current_set) => {
+    dispatch({ type: SET_CURRENT_SET_IN_ROOM, payload: current_set });
+  };
 
   const addClassReminder = (reminder_text) => {
     dispatch({ type: ADD_CLASS_REMINDER, payload: reminder_text });
@@ -170,6 +176,7 @@ const ClassroomState = (props) => {
         current_reminder: state.current_reminder,
         current_scale: state.current_scale,
         current_desk: state.current_desk,
+        current_set: state.current_set,
         addClassReminder,
         deleteCurrentClassReminder,
         incrementCurrentReminder,
@@ -188,6 +195,7 @@ const ClassroomState = (props) => {
         cycleStudentFlag,
         flipClassroom,
         toggleSwapping,
+        setCurrentSet,
         initializeClassroomContext,
         is_swapping: state.is_swapping,
         is_flipped: state.is_flipped,

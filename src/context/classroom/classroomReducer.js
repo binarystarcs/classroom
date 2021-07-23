@@ -15,20 +15,89 @@ import {
   INCREMENT_STUDENT_PROGRESS,
   INITIALIZE_CLASSROOM_CONTEXT,
   SET_CURRENT_DESK,
+  SET_CURRENT_SET_IN_ROOM,
   STUDENT_FLAG_COUNT,
   SWAP_STUDENTS,
   TOGGLE_SHOW_REMINDERS,
   TOGGLE_SWAPPING,
 } from "../types";
 
+const addClassReminderToStorage = (set_name, reminder_text) => {
+  const storedSets = JSON.parse(window.localStorage.getItem("sets"));
+  let currentSet = storedSets.find((s) => s.name === set_name);
+  if (!currentSet) return false;
+  if (currentSet.reminders === null) {
+    currentSet.reminders = [reminder_text];
+  } else {
+    currentSet.reminders.push(reminder_text);
+  }
+  window.localStorage.setItem(
+    "sets",
+    JSON.stringify(
+      storedSets.map((s) => (s.name === set_name ? currentSet : s))
+    )
+  );
+  return true;
+};
+
+const deleteClassReminderFromStorage = (set_name, reminder_text) => {
+  const storedSets = JSON.parse(window.localStorage.getItem("sets"));
+  let currentSet = storedSets.find((s) => s.name === set_name);
+  if (!currentSet) return false;
+  if (!currentSet.reminders) return false;
+  if (currentSet.reminders.indexOf(reminder_text) === -1) return false;
+  currentSet.reminders = currentSet.reminders.filter(
+    (r) => r !== reminder_text
+  );
+  window.localStorage.setItem(
+    "sets",
+    JSON.stringify(
+      storedSets.map((s) => (s.name === set_name ? currentSet : s))
+    )
+  );
+  return true;
+};
+
+const setStudentReminderInStorage = (set_name, student_id, new_text) => {
+  const storedSets = JSON.parse(window.localStorage.getItem("sets"));
+  let currentSet = storedSets.find((s) => s.name === set_name);
+  if (!currentSet) return false;
+  if (!currentSet.students.find((s) => s.id === student_id)) return false;
+  window.localStorage.setItem(
+    "sets",
+    JSON.stringify(
+      storedSets.map((s) =>
+        s.name === set_name
+          ? {
+              ...currentSet,
+              students: currentSet.students.map((student) =>
+                student.id === student_id
+                  ? { ...student, reminder: new_text }
+                  : student
+              ),
+            }
+          : s
+      )
+    )
+  );
+  return true;
+};
+
 export default (state, action) => {
   switch (action.type) {
+    case SET_CURRENT_SET_IN_ROOM:
+      return {
+        ...state,
+        current_set: action.payload,
+      };
     case ADD_CLASS_REMINDER:
+      addClassReminderToStorage(state.current_set, action.payload);
       return {
         ...state,
         class_reminders: [...state.class_reminders, action.payload],
       };
     case DELETE_CURRENT_REMINDER:
+      deleteClassReminderFromStorage(state.current_set, action.payload);
       let modified_reminders = [...state.class_reminders];
       modified_reminders.splice(state.current_reminder, 1);
       let new_current_reminder = state.current_reminder;
@@ -101,6 +170,15 @@ export default (state, action) => {
         ),
       };
     case EDIT_STUDENT_REMINDER:
+      const student_id_for_edit = state.students.find(
+        (student) => student.desk_id === action.payload.desk_id
+      )?.id;
+      if (student_id_for_edit)
+        setStudentReminderInStorage(
+          state.current_set,
+          student_id_for_edit,
+          action.payload.text
+        );
       return {
         ...state,
         students: state.students.map((student) =>
@@ -110,6 +188,16 @@ export default (state, action) => {
         ),
       };
     case CLEAR_STUDENT_REMINDER:
+      const student_id_for_clear = state.students.find(
+        (student) => student.desk_id === action.payload.desk_id
+      )?.id;
+      if (student_id_for_clear)
+        setStudentReminderInStorage(
+          state.current_set,
+          student_id_for_clear,
+          null
+        );
+
       return {
         ...state,
         students: state.students.map((student) =>
