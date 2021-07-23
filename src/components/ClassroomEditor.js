@@ -134,7 +134,7 @@ export const ClassroomEditor = () => {
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
       >
-        <h3>This is a classroom editor</h3>
+        <h4 className="main-menu-header">{current_room} layout</h4>
         {deskPositions.map((desk, index) => (
           <DraggableDesk
             key={`${index}`}

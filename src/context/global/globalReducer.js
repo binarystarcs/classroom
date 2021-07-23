@@ -217,8 +217,8 @@ export default (state, action) => {
       if (action.payload.length !== state.current_seating.students.length)
         return { ...state, error: "Seating arrangement length incorrect." };
       if (
-        [...action.payload].sort() !==
-        [...state.current_seating.students].sort()
+        JSON.stringify([...action.payload].sort()) !==
+        JSON.stringify([...state.current_seating.students].sort())
       )
         return { ...state, error: "Incorrect student IDs" };
       return {

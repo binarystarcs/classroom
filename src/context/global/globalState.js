@@ -19,90 +19,96 @@ import {
 
 const GlobalState = (props) => {
   const initialState = {
-    rooms: [
-      {
-        name: "Room A",
-        desk_width: 16,
-        desk_height: 12,
-        desks: [
-          // Note desk ids are always 0..length-1
-          { id: 0, x: 20, y: 40 },
-          { id: 1, x: 44, y: 40 },
-          { id: 2, x: 68, y: 40 },
-          { id: 3, x: 32, y: 70 },
-          { id: 4, x: 56, y: 70 },
-        ],
-      },
-      {
-        name: "Room B",
-        desk_width: 14,
-        desk_height: 10,
-        desks: [
-          { id: 0, x: 10, y: 33 },
-          { id: 1, x: 30, y: 33 },
-          { id: 2, x: 50, y: 33 },
-          { id: 3, x: 70, y: 33 },
-        ],
-      },
-    ],
+    rooms: [],
+    sets: [],
+    seatings: [],
     current_room: null,
-    sets: [
-      {
-        name: "Potions",
-        reminders: ["Give back books", "Reschedule lesson"],
-        students: [
-          {
-            id: 1,
-            name: "Harry",
-            reminder: null,
-          },
-          {
-            id: 2,
-            name: "Ron",
-            reminder: "Half-blood prince book",
-          },
-          {
-            id: 3,
-            name: "Hermione",
-            reminder: null,
-          },
-        ],
-      },
-      {
-        name: "Dark Arts Defence",
-        reminders: [],
-        students: [
-          {
-            id: 4,
-            name: "Harry",
-            reminder: null,
-          },
-          {
-            id: 2,
-            name: "Draco",
-            reminder: "Call dad",
-          },
-          {
-            id: 3,
-            name: "Neville",
-            reminder: null,
-          },
-        ],
-      },
-    ],
     current_set: null,
-    seatings: [
-      {
-        room_name: "Room A",
-        class_name: "Potions",
-        students: [3, 1, null, 2, null],
-      },
-      {
-        room_name: "Room B",
-        class_name: "Dark Arts Defence",
-        students: [2, null, 4, 3],
-      },
-    ],
+    current_seating: null,
+    // rooms: [
+    //   {
+    //     name: "Room A",
+    //     desk_width: 16,
+    //     desk_height: 12,
+    //     desks: [
+    //       // Note desk ids are always 0..length-1
+    //       { id: 0, x: 20, y: 40 },
+    //       { id: 1, x: 44, y: 40 },
+    //       { id: 2, x: 68, y: 40 },
+    //       { id: 3, x: 32, y: 70 },
+    //       { id: 4, x: 56, y: 70 },
+    //     ],
+    //   },
+    //   {
+    //     name: "Room B",
+    //     desk_width: 14,
+    //     desk_height: 10,
+    //     desks: [
+    //       { id: 0, x: 10, y: 33 },
+    //       { id: 1, x: 30, y: 33 },
+    //       { id: 2, x: 50, y: 33 },
+    //       { id: 3, x: 70, y: 33 },
+    //     ],
+    //   },
+    // ],
+    // current_room: null,
+    // sets: [
+    //   {
+    //     name: "Potions",
+    //     reminders: ["Give back books", "Reschedule lesson"],
+    //     students: [
+    //       {
+    //         id: 1,
+    //         name: "Harry",
+    //         reminder: null,
+    //       },
+    //       {
+    //         id: 2,
+    //         name: "Ron",
+    //         reminder: "Half-blood prince book",
+    //       },
+    //       {
+    //         id: 3,
+    //         name: "Hermione",
+    //         reminder: null,
+    //       },
+    //     ],
+    //   },
+    //   {
+    //     name: "Dark Arts Defence",
+    //     reminders: [],
+    //     students: [
+    //       {
+    //         id: 4,
+    //         name: "Harry",
+    //         reminder: null,
+    //       },
+    //       {
+    //         id: 2,
+    //         name: "Draco",
+    //         reminder: "Call dad",
+    //       },
+    //       {
+    //         id: 3,
+    //         name: "Neville",
+    //         reminder: null,
+    //       },
+    //     ],
+    //   },
+    // ],
+    // current_set: null,
+    // seatings: [
+    //   {
+    //     room_name: "Room A",
+    //     class_name: "Potions",
+    //     students: [3, 1, null, 2, null],
+    //   },
+    //   {
+    //     room_name: "Room B",
+    //     class_name: "Dark Arts Defence",
+    //     students: [2, null, 4, 3],
+    //   },
+    // ],
     error: null,
   };
 

@@ -61,6 +61,10 @@ export const SetEditor = () => {
     setNewName("");
   };
 
+  const deleteStudent = (id) => {
+    setstudentList(studentList.filter((s) => s.id !== id));
+  };
+
   const getNameForId = (id) => {
     return studentList.find((student) => student.id === id)?.name;
   };
@@ -113,6 +117,7 @@ export const SetEditor = () => {
                   className="btn-small red student-delete-button"
                   id={`student-delete-button-${student.id}`}
                   key={`student-delete-button-${student.id}`}
+                  onClick={() => deleteStudent(student.id)}
                 >
                   <i className="material-icons">delete</i>
                 </button>

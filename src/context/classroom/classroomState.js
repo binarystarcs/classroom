@@ -26,40 +26,42 @@ import {
 
 const ClassroomState = (props) => {
   const initialState = {
-    students: [
-      {
-        id: 1,
-        name: "Harry",
-        desk_id: 3,
-        reminder: null,
-        progress: [0, 0, 0, 0, 0],
-        flag: 0,
-      },
-      {
-        id: 2,
-        name: "Hermione",
-        desk_id: 1,
-        reminder: null,
-        progress: [1, 3, 0, 0, 0],
-        flag: 1,
-      },
-      {
-        id: 3,
-        name: "Ron",
-        desk_id: 2,
-        reminder: "Give back Prof Snape's book",
-        progress: [0, 1, 4, 0, 0],
-        flag: 0,
-      },
-    ], //Each student has id, name, desk_id, reminder?, progress[], flag (0-3)
-    desks: [
-      { id: 1, x: 20, y: 20 },
-      { id: 2, x: 45, y: 20 },
-      { id: 3, x: 20, y: 60 },
-      { id: 4, x: 45, y: 60 },
-    ], //Each desk had id, x, y - referring to top left corner coordinates
-    desk_size_x: 16,
-    desk_size_y: 10,
+    students: [],
+    desks: [],
+    class_reminders: [],
+    // students: [
+    //   {
+    //     id: 1,
+    //     name: "Harry",
+    //     desk_id: 3,
+    //     reminder: null,
+    //     progress: [0, 0, 0, 0, 0],
+    //     flag: 0,
+    //   },
+    //   {
+    //     id: 2,
+    //     name: "Hermione",
+    //     desk_id: 1,
+    //     reminder: null,
+    //     progress: [1, 3, 0, 0, 0],
+    //     flag: 1,
+    //   },
+    //   {
+    //     id: 3,
+    //     name: "Ron",
+    //     desk_id: 2,
+    //     reminder: "Give back Prof Snape's book",
+    //     progress: [0, 1, 4, 0, 0],
+    //     flag: 0,
+    //   },
+    // ], //Each student has id, name, desk_id, reminder?, progress[], flag (0-3)
+    // desks: [
+    //   { id: 1, x: 20, y: 20 },
+    //   { id: 2, x: 45, y: 20 },
+    //   { id: 3, x: 20, y: 60 },
+    //   { id: 4, x: 45, y: 60 },
+    // ], //Each desk had id, x, y - referring to top left corner coordinates
+    // class_reminders: ["alpha", "beta", "gamma", "delta"],
     progress_scales: [
       ["", "$yes", "$no"],
       ["", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
@@ -67,8 +69,9 @@ const ClassroomState = (props) => {
       ["", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
       ["", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
     ],
-    class_reminders: ["alpha", "beta", "gamma", "delta"],
-    current_reminder: 1, // index in class_reminders array
+    desk_size_x: 16,
+    desk_size_y: 10,
+    current_reminder: 0, // index in class_reminders array
     current_scale: 0, // index in progress_scales array
     current_desk: null, // id attribute of the desk
     show_reminders: true,

@@ -34,8 +34,8 @@ export const Desk = (props) => {
 
   const generateStyle = () => {
     let styleObject = {
-      height: desk_size_x + "%",
-      width: desk_size_y + "%",
+      height: desk_size_y + "%",
+      width: desk_size_x + "%",
       borderWidth: "2px",
       borderColor: "hsl(0, 0%, 10%)",
     };

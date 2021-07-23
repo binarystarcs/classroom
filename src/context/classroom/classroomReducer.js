@@ -43,9 +43,12 @@ const addClassReminderToStorage = (set_name, reminder_text) => {
 const deleteClassReminderFromStorage = (set_name, reminder_text) => {
   const storedSets = JSON.parse(window.localStorage.getItem("sets"));
   let currentSet = storedSets.find((s) => s.name === set_name);
+  console.log(currentSet.reminders);
+  console.log(reminder_text);
   if (!currentSet) return false;
   if (!currentSet.reminders) return false;
   if (currentSet.reminders.indexOf(reminder_text) === -1) return false;
+  console.log("Trying to delete", reminder_text, "from", currentSet);
   currentSet.reminders = currentSet.reminders.filter(
     (r) => r !== reminder_text
   );
@@ -97,7 +100,9 @@ export default (state, action) => {
         class_reminders: [...state.class_reminders, action.payload],
       };
     case DELETE_CURRENT_REMINDER:
-      deleteClassReminderFromStorage(state.current_set, action.payload);
+      const current_reminder_text =
+        state.class_reminders[state.current_reminder];
+      deleteClassReminderFromStorage(state.current_set, current_reminder_text);
       let modified_reminders = [...state.class_reminders];
       modified_reminders.splice(state.current_reminder, 1);
       let new_current_reminder = state.current_reminder;
@@ -189,7 +194,7 @@ export default (state, action) => {
       };
     case CLEAR_STUDENT_REMINDER:
       const student_id_for_clear = state.students.find(
-        (student) => student.desk_id === action.payload.desk_id
+        (student) => student.desk_id === action.payload
       )?.id;
       if (student_id_for_clear)
         setStudentReminderInStorage(
@@ -287,6 +292,7 @@ export default (state, action) => {
         ],
         class_reminders: action.payload.current_set.reminders,
         current_reminder: 0,
+        current_set: action.payload.current_set.name,
         current_scale: 0,
         current_desk: null,
         show_reminders: true,
