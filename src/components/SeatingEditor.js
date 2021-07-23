@@ -18,15 +18,12 @@ export const SeatingEditor = () => {
   const discardChanges = useRef();
 
   useEffect(() => {
-    console.log("Seating", current_seating);
     const current_set = JSON.parse(window.localStorage.getItem("sets"))?.find(
       (setObj) => setObj.name === current_seating.class_name
     );
-    console.log("Set", current_set);
     const current_room = JSON.parse(window.localStorage.getItem("rooms"))?.find(
       (room) => room.name === current_seating.room_name
     );
-    console.log("Room", current_room);
     const desk_blueprint = current_room.desks.map((desk, index) => ({
       id: desk.id,
       x: desk.x,
@@ -38,7 +35,6 @@ export const SeatingEditor = () => {
           (s) => s.id === current_seating.students[index]
         ) || null,
     }));
-    console.log("Blueprint", desk_blueprint);
     setDesks(desk_blueprint);
     // eslint-disable-next-line
   }, []);
@@ -70,11 +66,9 @@ export const SeatingEditor = () => {
       desk.student === null ? null : desk.student.id
     );
     updateCurrentSeating(newSeating);
-    console.log("New seating:", newSeating);
     if (error === null) {
       discardChanges.current.click();
     } else {
-      console.log(error);
     }
   };
 
@@ -92,11 +86,15 @@ export const SeatingEditor = () => {
         ))}
       </div>
 
-      <button className="btn-large" onClick={saveSeating}>
+      <button className="btn-large bottom-right-button" onClick={saveSeating}>
         SAVE
       </button>
-      <Link to="/" ref={discardChanges} className="btn-large">
-        EXIT
+      <Link
+        to="/"
+        ref={discardChanges}
+        className="btn-large bottom-left-button"
+      >
+        DISCARD
       </Link>
     </Fragment>
   );

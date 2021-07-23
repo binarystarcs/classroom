@@ -107,7 +107,6 @@ export const ClassroomEditor = () => {
   }, []);
 
   const saveLayout = () => {
-    console.log("Saving layout...");
     const room_data = {
       desk_width: width,
       desk_height: height,
@@ -118,9 +117,7 @@ export const ClassroomEditor = () => {
       })),
     };
     updateCurrentRoom(room_data);
-    console.log("Layout saved");
     if (error === null) {
-      console.log("Save successful");
       exitButton.current.click();
     }
   };

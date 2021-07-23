@@ -43,12 +43,9 @@ const addClassReminderToStorage = (set_name, reminder_text) => {
 const deleteClassReminderFromStorage = (set_name, reminder_text) => {
   const storedSets = JSON.parse(window.localStorage.getItem("sets"));
   let currentSet = storedSets.find((s) => s.name === set_name);
-  console.log(currentSet.reminders);
-  console.log(reminder_text);
   if (!currentSet) return false;
   if (!currentSet.reminders) return false;
   if (currentSet.reminders.indexOf(reminder_text) === -1) return false;
-  console.log("Trying to delete", reminder_text, "from", currentSet);
   currentSet.reminders = currentSet.reminders.filter(
     (r) => r !== reminder_text
   );

@@ -12,6 +12,7 @@ import {
   EDIT_CURRENT_ROOM,
   EDIT_CURRENT_SEATING,
   EDIT_CURRENT_SET,
+  INITIALIZE_GLOBAL_CONTEXT,
   SET_CURRENT_ROOM,
   SET_CURRENT_SET,
   UPDATE_LOCAL_STORAGE,
@@ -165,6 +166,10 @@ const GlobalState = (props) => {
     dispatch({ type: UPDATE_LOCAL_STORAGE, payload: null });
   };
 
+  const initializeGlobalContext = () => {
+    dispatch({ type: INITIALIZE_GLOBAL_CONTEXT, payload: null });
+  };
+
   return (
     <GlobalContext.Provider
       value={{
@@ -186,6 +191,7 @@ const GlobalState = (props) => {
         updateCurrentSet,
         deleteCurrentSet,
         deleteCurrentRoom,
+        initializeGlobalContext,
       }}
     >
       {props.children}

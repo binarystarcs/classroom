@@ -12,10 +12,8 @@ export const SetEditor = () => {
   const discardButton = useRef();
 
   const getUnusedId = () => {
-    console.log(studentList);
     if (studentList.length === 0) return 1;
     const usedids = studentList.map((student) => student.id);
-    console.log(usedids);
     return Math.max(...usedids) + 1;
   };
 
@@ -43,12 +41,9 @@ export const SetEditor = () => {
   }, [studentList]);
 
   const saveSetlist = () => {
-    console.log("Saving set list...");
     updateCurrentSet(studentList);
     if (error !== null) {
-      console.log(error);
     } else {
-      console.log("Saving successful.");
       discardButton.current.click();
     }
   };
@@ -107,7 +102,6 @@ export const SetEditor = () => {
                   type="text"
                   value={getNameForId(student.id)}
                   onChange={(e) => {
-                    console.log(e.target.value);
                     setNameForId(student.id, e.target.value);
                   }}
                 />
@@ -148,8 +142,8 @@ export const SetEditor = () => {
         <button className="btn-large red btn-wide" onClick={saveSetlist}>
           Update Set List
         </button>
-        <Link to="/" className="btn-large btn-wide">
-          <button ref={discardButton}>Discard Changes</button>
+        <Link to="/" ref={discardButton} className="btn-large btn-wide">
+          Discard Changes
         </Link>
       </div>
     </div>

@@ -9,6 +9,7 @@ import {
   EDIT_CURRENT_ROOM,
   EDIT_CURRENT_SEATING,
   EDIT_CURRENT_SET,
+  INITIALIZE_GLOBAL_CONTEXT,
   SET_CURRENT_ROOM,
   SET_CURRENT_SET,
   UPDATE_LOCAL_STORAGE,
@@ -38,21 +39,17 @@ const updateLocalStorage = (state) => {
 };
 
 const updateSeatingWithClass = (seating_list, set_list, room_desk_count) => {
-  console.log("Set list", set_list);
   let expanded_seating_list = seating_list;
   for (let i = seating_list.length; i < room_desk_count; i += 1)
     expanded_seating_list.push(null);
-  console.log("Expanded seating list", expanded_seating_list);
   const eliminated_list = expanded_seating_list
     .slice(0, room_desk_count)
     .map((value) =>
       set_list.some((student) => student.id === value) ? value : null
     );
-  console.log("Eliminated list", eliminated_list);
   const unseated_students = set_list
     .filter((student) => !eliminated_list.some((value) => value === student.id))
     .map((student) => student.id);
-  console.log("Unseated students", unseated_students);
   return eliminated_list.map((value) =>
     value === null
       ? unseated_students.length
@@ -263,6 +260,16 @@ export default (state, action) => {
     case UPDATE_LOCAL_STORAGE:
       updateLocalStorage(state);
       return state;
+    case INITIALIZE_GLOBAL_CONTEXT:
+      return {
+        sets: JSON.parse(window.localStorage.getItem("sets")) || [],
+        current_set: null,
+        rooms: JSON.parse(window.localStorage.getItem("rooms")) || [],
+        current_room: null,
+        seatings: JSON.parse(window.localStorage.getItem("seatings")) || [],
+        current_seating: null,
+        error: null,
+      };
     default:
       return state;
   }

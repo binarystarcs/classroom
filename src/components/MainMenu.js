@@ -24,7 +24,13 @@ export const MainMenu = () => {
     current_set,
     setCurrentSet,
     setCurrentRoom,
+    initializeGlobalContext,
   } = globalContext;
+
+  useEffect(() => {
+    initializeGlobalContext();
+    //eslint-disable-next-line
+  }, []);
 
   const clearSetSelect = () => {
     setSelect.current.state.value = null;
@@ -35,12 +41,10 @@ export const MainMenu = () => {
   };
 
   const handleSetChange = (option) => {
-    console.log(`Set changed to ${option.value}`);
     setCurrentSet(option.value);
   };
 
   const handleRoomChange = (option) => {
-    console.log(`Room changed to ${option.value}`);
     setCurrentRoom(option.value);
   };
 
@@ -98,28 +102,28 @@ export const MainMenu = () => {
         <button className="btn-large modal-trigger" href="#addRoomModal">
           <i className="material-icons">add</i>
         </button>
-        <div className="launch-button-link">
-          <Link to="/lesson">
-            <button
-              className={`btn-large launch-button ${
-                (current_set === null || current_room === null) && "disabled"
-              }`}
-            >
-              Launch
-            </button>
-          </Link>
-        </div>
-        <div className="launch-button-link">
-          <Link to="/seating">
-            <button
-              className={`btn-large launch-button ${
-                (current_set === null || current_room === null) && "disabled"
-              }`}
-            >
-              Edit Seating Arrangement
-            </button>
-          </Link>
-        </div>
+        {current_set !== null && current_room !== null && (
+          <Fragment>
+            <Link to="/seating" className="launch-button-link wide">
+              <button
+                className={`btn-large launch-button wide ${
+                  (current_set === null || current_room === null) && "disabled"
+                }`}
+              >
+                Edit Seating Arrangement
+              </button>
+            </Link>
+            <Link to="/lesson" className="launch-button-link wide">
+              <button
+                className={`btn-large launch-button wide green ${
+                  (current_set === null || current_room === null) && "disabled"
+                }`}
+              >
+                Launch
+              </button>
+            </Link>
+          </Fragment>
+        )}
       </div>
       <AddSetModal />
       <AddRoomModal />

@@ -11,15 +11,12 @@ export const LessonContainer = () => {
   const { initializeClassroomContext } = classroomContext;
   const { current_seating } = globalContext;
   useEffect(() => {
-    console.log("Seating", current_seating);
     const current_set = JSON.parse(window.localStorage.getItem("sets"))?.find(
       (setObj) => setObj.name === current_seating.class_name
     );
-    console.log("Set", current_set);
     const current_room = JSON.parse(window.localStorage.getItem("rooms"))?.find(
       (room) => room.name === current_seating.room_name
     );
-    console.log("Room", current_room);
     initializeClassroomContext(current_set, current_room, current_seating);
     // eslint-disable-next-line
   }, []);

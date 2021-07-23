@@ -188,6 +188,12 @@ h2 {
   grid-column-start: 1;
   grid-column-end: -1;
 }
+.wide {
+  width: 100%;
+  justify-self: stretch;
+  align-self: stretch;
+  display: inline-block;
+}
 
 .rotated {
   transform: rotate(90deg);
@@ -208,4 +214,16 @@ h2 {
 .btn-wide {
   width: 100%;
   margin: 1rem;
+}
+
+.bottom-left-button {
+  position: absolute;
+  left: 1rem;
+  bottom: 1rem;
+}
+
+.bottom-right-button {
+  position: absolute;
+  right: 1rem;
+  bottom: 1rem;
 }
