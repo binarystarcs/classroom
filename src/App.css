@@ -227,3 +227,7 @@ h2 {
   right: 1rem;
   bottom: 1rem;
 }
+
+.centered {
+  text-align: center;
+}

@@ -80,12 +80,11 @@ export const SetEditor = () => {
           <tr>
             <th>ID</th>
             <th>Name</th>
-            <th> </th>
           </tr>
         </thead>
         <tbody>
           {studentList.map((student) => (
-            <tr>
+            <tr key={student.id}>
               <td
                 className="student-id"
                 id={`student-id-${student.id}`}

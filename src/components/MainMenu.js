@@ -9,6 +9,8 @@ import { AddRoomModal } from "./AddRoomModal";
 import { DeleteSetModal } from "./DeleteSetModal";
 import { DeleteRoomModal } from "./DeleteRoomModal";
 import { Link } from "react-router-dom";
+import { saveAs } from "file-saver";
+import { LoadBackupModal } from "./LoadBackupModal";
 
 export const MainMenu = () => {
   useEffect(() => {
@@ -48,9 +50,20 @@ export const MainMenu = () => {
     setCurrentRoom(option.value);
   };
 
+  const saveLocalStorage = () => {
+    const rooms = JSON.parse(localStorage.getItem("rooms"));
+    const sets = JSON.parse(localStorage.getItem("sets"));
+    const seatings = JSON.parse(localStorage.getItem("seatings"));
+    const dump = JSON.stringify({ sets, rooms, seatings });
+    const filename = "classroom_backup.txt";
+    var blob = new Blob([dump], { type: "text/plain;charset=utf-8" });
+    saveAs(blob, filename);
+    console.log(`Data saved as ${filename}`);
+  };
+
   return (
     <Fragment>
-      <h3 className="main-menu-header">Classroom Manager</h3>
+      <h3 className="main-menu-header">Classroom Assistant</h3>
       <div className="main-menu-container">
         <button
           className={`btn-large red modal-trigger ${
@@ -60,7 +73,7 @@ export const MainMenu = () => {
         >
           <i className="material-icons">delete</i>
         </button>
-        <Link to="/setlist">
+        <Link to={current_set === null ? "/" : "/setlist"}>
           <button className={`btn-large ${current_set === null && "disabled"}`}>
             <i className="material-icons">edit</i>
           </button>
@@ -84,7 +97,7 @@ export const MainMenu = () => {
         >
           <i className="material-icons">delete</i>
         </button>
-        <Link to="/layout">
+        <Link to={current_room === null ? "/" : "/layout"}>
           <button
             className={`btn-large ${current_room === null && "disabled"}`}
           >
@@ -125,10 +138,23 @@ export const MainMenu = () => {
           </Fragment>
         )}
       </div>
+      <button
+        className="btn bottom-left-button grey"
+        onClick={saveLocalStorage}
+      >
+        BACKUP DATA
+      </button>
+      <button
+        className="btn bottom-right-button grey modal-trigger"
+        href="#loadBackupModal"
+      >
+        RESTORE FROM BACKUP
+      </button>
       <AddSetModal />
       <AddRoomModal />
       <DeleteSetModal clearSetSelect={clearSetSelect} />
       <DeleteRoomModal clearRoomSelect={clearRoomSelect} />
+      <LoadBackupModal />
     </Fragment>
   );
 };
