@@ -61,6 +61,19 @@ export const MainMenu = () => {
     console.log(`Data saved as ${filename}`);
   };
 
+  const isRoomUnfitForClass = (room_name, set_name) => {
+    if (room_name === null || set_name === null) return true;
+    let room_object = rooms.find((r) => r.name === room_name);
+    let set_object = sets.find((s) => s.name === set_name);
+    return (
+      room_object === null ||
+      set_object === null ||
+      room_object.desks.length === 0 ||
+      set_object.studets.length === 0 ||
+      room_object.desks.length < set_object.students.length
+    );
+  };
+
   return (
     <Fragment>
       <h3 className="main-menu-header">Classroom Assistant</h3>
@@ -115,28 +128,36 @@ export const MainMenu = () => {
         <button className="btn-large modal-trigger" href="#addRoomModal">
           <i className="material-icons">add</i>
         </button>
-        {current_set !== null && current_room !== null && (
-          <Fragment>
-            <Link to="/seating" className="launch-button-link wide">
-              <button
-                className={`btn-large launch-button wide ${
-                  (current_set === null || current_room === null) && "disabled"
-                }`}
-              >
-                Edit Seating Arrangement
-              </button>
-            </Link>
-            <Link to="/lesson" className="launch-button-link wide">
-              <button
-                className={`btn-large launch-button wide green ${
-                  (current_set === null || current_room === null) && "disabled"
-                }`}
-              >
-                Launch
-              </button>
-            </Link>
-          </Fragment>
-        )}
+        {current_set !== null &&
+          current_room !== null &&
+          !isRoomUnfitForClass(current_room, current_set) && (
+            <Fragment>
+              <Link to="/seating" className="launch-button-link wide">
+                <button
+                  className={`btn-large launch-button wide ${
+                    (current_set === null ||
+                      current_room === null ||
+                      isRoomUnfitForClass(current_room, current_set)) &&
+                    "disabled"
+                  }`}
+                >
+                  Edit Seating Arrangement
+                </button>
+              </Link>
+              <Link to="/lesson" className="launch-button-link wide">
+                <button
+                  className={`btn-large launch-button wide green ${
+                    (current_set === null ||
+                      current_room === null ||
+                      isRoomUnfitForClass(current_room, current_set)) &&
+                    "disabled"
+                  }`}
+                >
+                  Launch
+                </button>
+              </Link>
+            </Fragment>
+          )}
       </div>
       <button
         className="btn bottom-left-button grey"
