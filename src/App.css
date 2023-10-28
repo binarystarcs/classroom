@@ -231,3 +231,7 @@ h2 {
 .centered {
   text-align: center;
 }
+
+.scrollable {
+  overflow: auto;
+}

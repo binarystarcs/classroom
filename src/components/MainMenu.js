@@ -69,7 +69,7 @@ export const MainMenu = () => {
       room_object === null ||
       set_object === null ||
       room_object.desks.length === 0 ||
-      set_object.studets.length === 0 ||
+      set_object.students.length === 0 ||
       room_object.desks.length < set_object.students.length
     );
   };

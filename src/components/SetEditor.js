@@ -82,7 +82,7 @@ export const SetEditor = () => {
             <th>Name</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody className="scrollable">
           {studentList.map((student) => (
             <tr key={student.id}>
               <td
